@@ -1,5 +1,7 @@
+const cors = require("cors");
 const express = require("express");
 const router = express.Router();
+router.use(cors());
 
 const dbknex = require("./data/dg_config");
 
