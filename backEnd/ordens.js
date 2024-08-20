@@ -48,4 +48,16 @@ router.delete("/:id", async (req, res) => {
         res.status(400).json({ msg: error.message });
     }
 });
+
+router.get("/filtro/:palavra", async (req, res) => {
+    const palavra = req.params.palavra;
+    try {
+        const ordens = await dbknex("ordens")
+            .where("id", "like", `%${palavra}%`)
+            .orWhere("modelo", "like", `%${palavra}%`);
+        res.status(200).json(ordens);        
+    } catch (error) {
+        res.status(400).json({ msg: error.message });
+    }
+});
 module.exports = router;
