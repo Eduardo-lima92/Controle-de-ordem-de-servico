@@ -1,13 +1,28 @@
+import { useState } from "react"
 import { useForm } from "react-hook-form"
+import { inAxios } from "../config_axios";
+
 
 const Inclusao = () => {
 
-    const { register, handleSubmit } = useForm();
+    const { register, handleSubmit, reset } = useForm();
 
-    const salvar = (campos) => {
-        alert(JSON.stringify(campos));
-    }
-    
+    const [aviso, setAviso] = useState("");
+
+    const salvar = async (campos) => {
+        try {
+            const response = await inAxios.post("ordens", campos);
+            setAviso(`Ordem de serviço n° ${response.data.id} cadastrada com sucesso`);
+        } catch (error) {
+            setAviso(`Erro... Ordem de serviço não cadastrada: ${error}`)            
+        }
+
+        setTimeout(() => {
+            setAviso("");
+        }, 5000);
+
+        reset({modelo: "", serie: "", tipo: "", descricao: "", observacao: ""});
+    };   
 
     return (
         <div className="container">
@@ -46,7 +61,10 @@ const Inclusao = () => {
                 <input type="submit" className="btn btn-primary mt-3" value="Salvar"></input>
                 <input type="reset" className="btn btn-danger mt-3 ms-3" value="Limpar"></input>
             </form>
+            <div className={aviso.startsWith("Ok!") ? "alert alert-success" : 
+                aviso.startsWith("Erro") ? "alert alert-danger" : ""}> {aviso}
+            </div>
         </div>
-    )
-}
+    );
+};
 export default Inclusao;
