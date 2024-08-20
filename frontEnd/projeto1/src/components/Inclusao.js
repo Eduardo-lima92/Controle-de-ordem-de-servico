@@ -21,7 +21,7 @@ const Inclusao = () => {
                 <div className="row mt-2">
                     <div className="col-sm-4">
                         <div className="form-group">
-                            <label htmlFor="number">Numero de serie:</label>
+                            <label htmlFor="serie">Numero de serie:</label>
                             <input type="text" className="form-control" id="serie" required {...register("serie")} />
                         </div>                       
                     </div>
