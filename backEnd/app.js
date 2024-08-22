@@ -29,5 +29,5 @@ const ordens = require('./ordens')
 app.use('/ordens', ordens)
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Servidor funcionando na porta ${port}`)
 });
